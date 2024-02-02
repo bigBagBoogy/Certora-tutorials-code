@@ -2,7 +2,7 @@
 
 git init
 git add .
-git commit -m "added twoSwap"
+git commit -m "added notes"
 git push origin main
 
 ### more git
@@ -235,3 +235,9 @@ receive crypto, the liquidate function will revert, preventing the liquidation.
 #2 Calling a function that does not exist
 #3 The external call execution runs out of gas
 #4 Third-party contract is simply malicious
+
+# Certora notes:
+
+in the `.spec` file when writing a function in a rule: 
+```vote(e, f, s, t); //considering only non reverting cases```
+```vote@withrevert(e, f, s, t); //considering all cases```
