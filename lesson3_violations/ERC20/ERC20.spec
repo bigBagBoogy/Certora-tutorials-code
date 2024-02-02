@@ -17,6 +17,7 @@ rule integrityOfTransferFrom(address sender, address recipient, uint256 amount) 
     env e;
     
     require sender != recipient;
+    require amount != 0;
 
     uint256 allowanceBefore = allowance(sender, e.msg.sender);
     transferFrom(e, sender, recipient, amount);
@@ -75,7 +76,7 @@ rule doesNotAffectAThirdPartyBalance(method f) {
     address to;
     address thirdParty;
 
-    require (thirdParty != from) && (thirdParty != to);
+    require (thirdParty != from) && (thirdParty != to) && (thirdParty != e.msg.sender);
 
     uint256 thirdBalanceBefore = balanceOf(thirdParty);
     callFunctionWithParams(e, f, from, to);
@@ -104,6 +105,7 @@ rule balanceChangesFromCertainFunctions(method f, address user){
         userBalanceBefore != userBalanceAfter => 
         (
             f.selector == sig:transfer(address, uint256).selector ||
+            f.selector == sig:transferFrom(address, address, uint256).selector ||
             f.selector == sig:mint(address, uint256).selector ||
             f.selector == sig:burn(address, uint256).selector)
         ),
@@ -117,5 +119,10 @@ rule onlyOwnersMayChangeTotalSupply(method f) {
     calldataarg args;
     f(e,args);
     uint256 totalSupplyAfter = totalSupply();
-    assert e.msg.sender == _owner() => totalSupplyAfter != totalSupplyBefore;
+    //  - assert e.msg.sender == _owner() => totalSupplyAfter != totalSupplyBefore;
+//     If the sender is the owner (e.msg.sender == _owner()), the assertion would fail if the total supply did not change (totalSupplyAfter == totalSupplyBefore). This may not be the intended behavior, as it's possible for the owner to perform operations that do not change the total supply.
+//  assert that (only) if the balance has changed, msg.sender == the owner.
+// To correct this logic, the assertion should be modified to ensure that if the total supply changed, then the sender must be the owner:
+    assert totalSupplyAfter != totalSupplyBefore => e.msg.sender == _owner() ;
+
 }

@@ -32,6 +32,9 @@ methods
 rule totalSupplyAfterMint(address account, uint256 amount) {
     env e; 
     
+    uint256 userBalanceBefore = balanceOf(account);
+    uint256 totalBefore = totalSupply();
+    
     mint(e, account, amount);
     
     uint256 userBalanceAfter = balanceOf(account);

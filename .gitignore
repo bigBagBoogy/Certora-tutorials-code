@@ -13,3 +13,6 @@
 # vim
 .*.swp
 .*.swo
+
+node_modules
+.env
