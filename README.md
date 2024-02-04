@@ -23,3 +23,9 @@ When running the spec ERC20.spec you must add "optimistic_loop": true to your co
 
 ## see this for the symbols used
 https://docs.certora.com/en/latest/docs/cvl/invariants.html#invariants-and-induction
+
+=> means: "implies"
+
+## playlist Certora tutorial:
+
+https://www.youtube.com/watch?v=CwCX0TuDfTE&list=PLKtu7wuOMP9XHbjAevkw2nL29YMubqEFj&index=2
