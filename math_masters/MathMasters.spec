@@ -15,8 +15,8 @@ rule mulWadDoesntRevert(uint x, uint y) {
 
 
 
-    require x < 10000000000000000;
-    require y < 10000000000000000;
+    require x < max_uint256 - 1;
+    require y < max_uint256 - 1;
     
     mulWad(x, y);
     assert !lastReverted;

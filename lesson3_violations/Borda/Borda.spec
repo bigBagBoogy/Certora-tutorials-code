@@ -93,15 +93,15 @@ rule noEffect(method m) {
     env e;
     uint256 c_points = points(c);
     bool c_voted = voted(c);
-    if (m.selector == sig:vote(address, address, address).selector) {
+    if (m.selector == sig:vote(address, address, address).selector) { // if Certora picks vote function...
         address f;
         address s;
         address t;
-        require( c != f  &&  c != s  &&  c != t );
+        require( c != f  &&  c != s  &&  c != t ); // make sure he does not vote on himself
         vote(e, f, s, t);
     }
     else {
-        calldataarg args;
+        calldataarg args; // what is happening here?
         m(e, args);
     }
     assert ( voted(c) == c_voted || c  == e.msg.sender ) &&
