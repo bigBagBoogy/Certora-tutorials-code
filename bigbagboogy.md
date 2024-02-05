@@ -2,7 +2,7 @@
 
 git init
 git add .
-git commit -m "started manager"
+git commit -m "added notes"
 git push origin main
 
 ### more git

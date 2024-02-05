@@ -24,8 +24,18 @@ When running the spec ERC20.spec you must add "optimistic_loop": true to your co
 ## see this for the symbols used
 https://docs.certora.com/en/latest/docs/cvl/invariants.html#invariants-and-induction
 
-=> means: "implies"
+=> means: "implies"       so:
+
+``` javascript
+transfer(e, recipient, amount);
+// amount being more than 0 `implies` that balance has gone up (balanceAfter > balanceBefore)
+assert amount > 0 => balanceAfter > balanceBefore
+// below is possible too, here the assertion checks both ways, so: "if balance increased, check that amount was greater than `0`"
+assert amount > 0 <=> balanceAfter > balanceBefore
+```
 
 ## playlist Certora tutorial:
 
 https://www.youtube.com/watch?v=CwCX0TuDfTE&list=PLKtu7wuOMP9XHbjAevkw2nL29YMubqEFj&index=2
+
+### ***ALWAYS:*** use MUST or MUST NOT in your assert messages, so it's clear what supposed to happen.
