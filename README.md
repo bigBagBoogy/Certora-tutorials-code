@@ -34,8 +34,15 @@ assert amount > 0 => balanceAfter > balanceBefore
 assert amount > 0 <=> balanceAfter > balanceBefore
 ```
 
+In predicate logic, the symbol used to represent `"for all"` is the universal quantifier, often denoted by the symbol "`∀`" (pronounced "for all"). So, if you have a statement like "For all x, P(x)," you would write it as "∀x P(x)," where P(x) is a predicate representing some property or condition involving the variable x.
+
+
 ## playlist Certora tutorial:
 
 https://www.youtube.com/watch?v=CwCX0TuDfTE&list=PLKtu7wuOMP9XHbjAevkw2nL29YMubqEFj&index=2
 
 ### ***ALWAYS:*** use MUST or MUST NOT in your assert messages, so it's clear what supposed to happen.
+
+Certora IS available in your other projects, but NOT "checkable" by running: 
+`certora --version`
+Thing is tho, you need to be inside the folder where your `.sol` is when running `certoraRun`
